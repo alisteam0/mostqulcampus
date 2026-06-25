@@ -138,16 +138,28 @@ function LandingPage() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden">
+{/* FLOATING TOP RIBBON - SEAMLESS MARQUEE */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden flex">
+        
+        {/* المجموعة الأولى اللي بتتحرك */}
         <div
-          style={{
-            display: "flex",
-            width: "max-content",
-            animation: "marquee 19s linear infinite",
-          }}
+          className="flex shrink-0"
+          style={{ animation: "marquee 19s linear infinite" }}
         >
-          {Array.from({ length: 12 }, (_, i) => (
-            <span key={i} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
+          {Array.from({ length: 8 }, (_, i) => (
+            <span key={`a-${i}`} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
+              🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
+            </span>
+          ))}
+        </div>
+
+        {/* المجموعة التانية (الظل) اللي بتدخل تملا الفراغ فوراً */}
+        <div
+          className="flex shrink-0"
+          style={{ animation: "marquee 19s linear infinite" }}
+        >
+          {Array.from({ length: 8 }, (_, i) => (
+            <span key={`b-${i}`} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
               🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
             </span>
           ))}
