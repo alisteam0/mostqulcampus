@@ -142,7 +142,7 @@ function LandingPage() {
         style={{
           display: "flex",
           width: "max-content",
-          animation: "marquee 8s linear infinite",
+          animation: "marquee 4s linear infinite",
         }}
       >
         {Array.from({ length: 12 }, (_, i) => (
@@ -415,7 +415,13 @@ function LandingPage() {
             <h2 className="text-2xl sm:text-3xl text-navy text-center">
               أتمم عملية الشراء واستلم نسختك فوراً علي الواتساب
             </h2>
-
+        {/* ADD THESE TWO LINES BELOW */}
+        <p className="mt-2 text-center text-sm font-bold text-gold">🎁 خصم خاص لأول 20 عميل</p>
+        <div className="mt-3 rounded-xl border-2 border-gold/60 bg-gold/10 px-5 py-3 text-center">
+          <span className="text-sm sm:text-base font-extrabold text-navy">
+            ⏳ باقي علي الخصم: {Math.floor(Math.random() * 20) + 1} عميل، الحق نسختك دلوقتي قبل انتهاء العرض
+          </span>
+        </div>
             {/* Payment instructions - emphasized */}
             <div className="mt-8 rounded-2xl border-2 border-gold bg-gold/5 p-6">
               <p className="text-sm sm:text-base font-bold text-navy text-center leading-relaxed">
