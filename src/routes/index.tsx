@@ -148,7 +148,7 @@ function LandingPage() {
           .seamless-marquee {
             display: flex;
             width: max-content;
-            animation: infiniteScroll 35s linear infinite;
+            animation: infiniteScroll 43s linear infinite;
           }
         `}</style>
         
