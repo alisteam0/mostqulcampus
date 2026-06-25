@@ -137,18 +137,21 @@ function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-10" dir="rtl">
-      {/* TOP ANNOUNCEMENT RIBBON */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden">
-        <div className="flex whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
-          {Array.from({ length: 6 }, (_, i) => (
-            <span key={i} className="text-sm font-bold mx-8 inline-block">🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥</span>
-          ))}
-          {Array.from({ length: 6 }, (_, i) => (
-            <span key={`dup-${i}`} className="text-sm font-bold mx-8 inline-block">🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥</span>
-          ))}
-        </div>
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden">
+      <div
+        style={{
+          display: "flex",
+          width: "max-content",
+          animation: "marquee 25s linear infinite",
+        }}
+      >
+        {Array.from({ length: 12 }, (_, i) => (
+          <span key={i} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
+            🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
+          </span>
+        ))}
       </div>
+    </div>
 
       {/* HERO */}
       <section className="bg-navy text-navy-foreground relative overflow-hidden">
