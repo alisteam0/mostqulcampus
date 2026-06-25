@@ -137,21 +137,22 @@ function LandingPage() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden">
-      <div
-        style={{
-          display: "flex",
-          width: "max-content",
-          animation: "marquee 4s linear infinite",
-        }}
-      >
-        {Array.from({ length: 12 }, (_, i) => (
-          <span key={i} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
-            🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
-          </span>
-        ))}
+    <>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden">
+        <div
+          style={{
+            display: "flex",
+            width: "max-content",
+            animation: "marquee 4s linear infinite",
+          }}
+        >
+          {Array.from({ length: 12 }, (_, i) => (
+            <span key={i} className="text-sm font-bold mx-8 inline-block whitespace-nowrap">
+              🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
 
       {/* HERO */}
       <section className="bg-navy text-navy-foreground relative overflow-hidden">
@@ -240,7 +241,7 @@ function LandingPage() {
         </div>
       </section>
 
-{/* SOLUTION */}
+      {/* SOLUTION */}
       <section className="bg-navy text-navy-foreground py-16 sm:py-24 px-5">
         <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
@@ -256,7 +257,6 @@ function LandingPage() {
           </div>
           
           <div className="order-1 md:order-2 flex justify-center">
-            {/* تم استبدال المربع الوهمي بصورة الموك أب الحقيقية */}
             <img 
               src="/cover.png" 
               alt="موك أب كتيب بوصلة المستقل" 
@@ -612,7 +612,7 @@ function LandingPage() {
           احجز نسختك الآن ◀
         </button>
       </div>
-    </div>
+    </>
   );
 }
 
