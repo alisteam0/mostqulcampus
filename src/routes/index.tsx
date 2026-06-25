@@ -143,7 +143,7 @@ function LandingPage() {
           style={{
             display: "flex",
             width: "max-content",
-            animation: "marquee 10s linear infinite",
+            animation: "marquee 15s linear infinite",
           }}
         >
           {Array.from({ length: 12 }, (_, i) => (
