@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "canonical", href: "/" },
       // السطر اللي جاي ده عشان يأكد ظهور اللوجو بتاعك في التاب
-      { rel: "icon", type: "image/png", href: "public/favicon.png" } 
+      { rel: "icon", type: "image/png", href: "public/favicon.webp" } 
     ],
   }),
   component: LandingPage,
@@ -266,7 +266,7 @@ function LandingPage() {
           
           <div className="order-1 md:order-2 flex justify-center">
             <img 
-              src="/cover.png" 
+              src="/cover.webp" 
               alt="موك أب كتيب بوصلة المستقل" 
               className="w-full max-w-md h-auto object-contain drop-shadow-2xl hover:-translate-y-2 transition-transform duration-300"
             />
