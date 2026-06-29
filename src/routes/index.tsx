@@ -569,6 +569,8 @@ function LandingPage() {
                   خلال لحظات هيتم التأكد من التحويل، وهيتبعتلك النظام على الايميل والواتساب.
                 </p>
               </form>
+              <WhatsAppFallbackButton />
+              </>
             )}
           </div>
         </div>
@@ -623,7 +625,36 @@ function LandingPage() {
     </>
   );
 }
+function WhatsAppIcon({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.4134-.074-.111-.272-.173-.57-.322zM12.005 2.001c-6.077 0-11.002 4.925-11.002 11.002 0 1.94.505 3.84 1.466 5.512L.758 22.209l3.8-1.003A10.946 10.946 0 0012.005 24c6.077 0 11.002-4.925 11.002-11.002 0-2.937-1.146-5.702-3.228-7.785A10.947 10.947 0 0012.005 2.001z" />
+    </svg>
+  );
+}
 
+function WhatsAppFallbackButton() {
+  return (
+    <a
+      href="https://wa.me/201558856357?text=أهلاً، أواجه مشكلة في إتمام الدفع أو رفع الصورة لكتيب بوصلة المستقل، وهذا إثبات الدفع:"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-5 block w-full rounded-2xl bg-[#25D366] px-5 py-4 text-white shadow-lg transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]"
+    >
+      <div className="flex items-center justify-center gap-3">
+        <WhatsAppIcon className="h-7 w-7 shrink-0" />
+        <div className="text-right leading-snug">
+          <p className="text-sm font-bold sm:text-base">
+            واجهت مشكلة في الدفع أو رفع الصورة؟
+          </p>
+          <p className="text-xs font-semibold opacity-95 sm:text-sm">
+            أرسل إثبات الدفع عبر واتساب من هنا
+          </p>
+        </div>
+      </div>
+    </a>
+  );
+}
 function Field({
   label,
   name,
