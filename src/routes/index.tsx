@@ -392,6 +392,52 @@ function LandingPage() {
           </div>
         </div>
       </section>
+            {/* TESTIMONIALS */}
+      <section className="py-16 sm:py-24 px-5 bg-cream">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-3xl sm:text-4xl text-navy text-center leading-snug">
+            قصص نجاح من ناس بدأوا زيك بالظبط..
+          </h2>
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {[
+              {
+                text: "كنت تايه ومش عارف ابدأ منين وكل ما اتعلم حاجة احس اني مش جاهز. الكتيب ده حرفياً حطني على أول الطريق، ميزة خطة الـ 30 يوم إنها بتجبرك تشتغل. جبت أول عميل من لينكد إن في أقل من 3 أسابيع!",
+                name: "أحمد محمود",
+                role: "مصمم جرافيك مبتدئ",
+              },
+              {
+                text: "ميزة الكتيب ده مش بس إنه بيعلمك فريلانس، ده بيديك 'برومبتس' جاهزة بتنجز شغل أسابيع في أيام. فصل التسعير والرد على اعتراضات العملاء خلاني أزود سعري الضعف وأنا واثق من نفسي.",
+                name: "سارة كمال",
+                role: "كاتبة محتوى",
+              },
+              {
+                text: "أنا مكنش عندي مهارة واضحة أصلاً! استخدمت الذكاء الاصطناعي زي ما الكتيب شرح عشان ألاقي تخصص مطلوب. دلوقتي بقدم خدمة تحسين صفحات الهبوط ومبسوط جداً بالسيستم اللي بنيته بفضل الكتيب.",
+                name: "مصطفى طارق",
+                role: "مستقل",
+              },
+            ].map((r) => (
+              <figure
+                key={r.name}
+                className="bg-card rounded-2xl p-7 border border-border shadow-card flex flex-col gap-4 relative"
+              >
+                <svg className="h-9 w-9 text-teal" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5V6Zm10 0A5.17 5.17 0 0 0 12 11.17V18h6.83v-6.83H15.5A1.67 1.67 0 0 1 17.17 9.5V6Z" />
+                </svg>
+                <div className="flex gap-1 text-gold text-lg" aria-label="5 stars">
+                  {"★★★★★"}
+                </div>
+                <blockquote className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                  {r.text}
+                </blockquote>
+                <figcaption className="mt-2 pt-4 border-t border-border">
+                  <div className="font-bold text-navy">{r.name}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{r.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* PRICE / FINAL CTA */}
       <section className="px-5 pb-16 sm:pb-24">
         <div className="mx-auto max-w-3xl bg-card rounded-3xl border border-border shadow-card p-8 sm:p-12 text-center">
@@ -524,52 +570,6 @@ function LandingPage() {
                 </p>
               </form>
             )}
-          </div>
-        </div>
-      </section>
-      {/* TESTIMONIALS */}
-      <section className="py-16 sm:py-24 px-5 bg-cream">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-3xl sm:text-4xl text-navy text-center leading-snug">
-            قصص نجاح من ناس بدأوا زيك بالظبط..
-          </h2>
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {[
-              {
-                text: "كنت تايه ومش عارف ابدأ منين وكل ما اتعلم حاجة احس اني مش جاهز. الكتيب ده حرفياً حطني على أول الطريق، ميزة خطة الـ 30 يوم إنها بتجبرك تشتغل. جبت أول عميل من لينكد إن في أقل من 3 أسابيع!",
-                name: "أحمد محمود",
-                role: "مصمم جرافيك مبتدئ",
-              },
-              {
-                text: "ميزة الكتيب ده مش بس إنه بيعلمك فريلانس، ده بيديك 'برومبتس' جاهزة بتنجز شغل أسابيع في أيام. فصل التسعير والرد على اعتراضات العملاء خلاني أزود سعري الضعف وأنا واثق من نفسي.",
-                name: "سارة كمال",
-                role: "كاتبة محتوى",
-              },
-              {
-                text: "أنا مكنش عندي مهارة واضحة أصلاً! استخدمت الذكاء الاصطناعي زي ما الكتيب شرح عشان ألاقي تخصص مطلوب. دلوقتي بقدم خدمة تحسين صفحات الهبوط ومبسوط جداً بالسيستم اللي بنيته بفضل الكتيب.",
-                name: "مصطفى طارق",
-                role: "مستقل",
-              },
-            ].map((r) => (
-              <figure
-                key={r.name}
-                className="bg-card rounded-2xl p-7 border border-border shadow-card flex flex-col gap-4 relative"
-              >
-                <svg className="h-9 w-9 text-teal" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5V6Zm10 0A5.17 5.17 0 0 0 12 11.17V18h6.83v-6.83H15.5A1.67 1.67 0 0 1 17.17 9.5V6Z" />
-                </svg>
-                <div className="flex gap-1 text-gold text-lg" aria-label="5 stars">
-                  {"★★★★★"}
-                </div>
-                <blockquote className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-                  {r.text}
-                </blockquote>
-                <figcaption className="mt-2 pt-4 border-t border-border">
-                  <div className="font-bold text-navy">{r.name}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{r.role}</div>
-                </figcaption>
-              </figure>
-            ))}
           </div>
         </div>
       </section>
