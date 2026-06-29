@@ -513,6 +513,7 @@ function LandingPage() {
                 </button>
               </div>
             ) : (
+              <>
               <form
                 ref={formElRef}
                 onSubmit={handleSubmit}
