@@ -13,12 +13,19 @@ export const Route = createFileRoute("/thank-you")({
 
 function ThankYou() {
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Purchase", {
-        value: 199.0,
-        currency: "EGP",
-        content_name: "بوصلة المستقل",
-      });
+    // التحقق هل تم تسجيل المبيعة لهذا العميل سابقاً على نفس الجهاز
+    const hasTracked = sessionStorage.getItem('purchase_tracked');
+
+    if (!hasTracked) {
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Purchase", {
+          value: 199.0,
+          currency: "EGP",
+          content_name: "بوصلة المستقل",
+        });
+      }
+      // وضع علامة أن هذا العميل تم تسجيل مبيعته
+      sessionStorage.setItem('purchase_tracked', 'true');
     }
   }, []);
 
