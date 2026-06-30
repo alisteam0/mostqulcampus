@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef } from "react";
+import { WhatsAppCheckoutButton } from "../components/WhatsAppCheckoutButton";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -11,25 +12,15 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "/" },
-      // السطر اللي جاي ده عشان يأكد ظهور اللوجو بتاعك في التاب
       { rel: "icon", type: "image/png", href: "public/faviconn.webp" } 
     ],
   }),
   component: LandingPage,
 });
 
-// TODO: Replace with your real keys
-const IMGBB_API_KEY = "YOUR_IMGBB_API_KEY";
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mlgkzpkr";
-
 function trackInitiateCheckout() {
   if (typeof window !== "undefined" && (window as any).fbq) {
     (window as any).fbq("track", "InitiateCheckout");
-  }
-}
-function trackPurchase() {
-  if (typeof window !== "undefined" && (window as any).fbq) {
-    (window as any).fbq("track", "Purchase");
   }
 }
 
@@ -51,94 +42,17 @@ function WarningIcon() {
 
 function LandingPage() {
   const formRef = useRef<HTMLDivElement>(null);
-  const formElRef = useRef<HTMLFormElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [openChapter, setOpenChapter] = useState<number | null>(0);
-  const [copied, setCopied] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const scrollToForm = () => {
     trackInitiateCheckout();
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const copyNumber = async () => {
-    try {
-      await navigator.clipboard.writeText("01020174981");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {}
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setErrorMsg("");
-
-    if (!file) {
-      setErrorMsg("من فضلك ارفع صورة إيصال التحويل.");
-      return;
-    }
-
-    const formEl = e.currentTarget;
-    const fd = new FormData(formEl);
-    const fullName = String(fd.get("Full_Name") || "");
-    const phone = String(fd.get("Phone") || "");
-    const email = String(fd.get("Email") || "");
-
-    setIsLoading(true);
-
-    try {
-      // Step A: Upload image to ImgBB
-      const imgForm = new FormData();
-      imgForm.append("image", file);
-
-      const imgRes = await fetch(
-        `https://api.imgbb.com/1/upload?key=${'01f0bb8ab50d774b7dc1091f1c2840e8'}`,
-        { method: "POST", body: imgForm }
-      );
-      const imgJson = await imgRes.json();
-      if (!imgRes.ok || !imgJson?.data?.url) {
-        throw new Error("فشل رفع الصورة، حاول مرة أخرى.");
-      }
-      const receiptUrl: string = imgJson.data.url;
-
-      // Step C: Send data to Formspree
-      const fsRes = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Full_Name: fullName,
-          Phone: phone,
-          Email: email,
-          Payment_Method: "VodafoneCash_InstaPay",
-          Receipt_Image_URL: receiptUrl,
-        }),
-      });
-
-      if (!fsRes.ok) {
-        throw new Error("فشل إرسال البيانات، حاول مرة أخرى.");
-      }
-
-      trackPurchase();
-      setSubmitted(true);
-      setFile(null);
-      formEl.reset();
-    } catch (err: any) {
-      setErrorMsg(err?.message || "حدث خطأ غير متوقع. حاول مرة أخرى.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <>
-{/* FLOATING TOP RIBBON - BULLETPROOF SEAMLESS MARQUEE */}
+      {/* FLOATING TOP RIBBON - BULLETPROOF SEAMLESS MARQUEE */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-gold text-navy py-2 overflow-hidden" dir="ltr">
         <style>{`
           @keyframes infiniteScroll {
@@ -153,7 +67,6 @@ function LandingPage() {
         `}</style>
         
         <div className="seamless-marquee">
-          {/* بنكرر الجملة 20 مرة (رقم زوجي) عشان لما تلف 50% ترجع تطابق نفسها بالظبط بدون أي فراغ */}
           {Array.from({ length: 20 }, (_, i) => (
             <span key={i} className="text-sm font-bold mx-8 whitespace-nowrap" dir="rtl">
               🔥 عرض لفترة محدودة! خصم خاص لأول 20 مشتري فقط.. لا تفوت الفرصة! 🔥
@@ -163,7 +76,7 @@ function LandingPage() {
       </div>
 
       {/* HERO */}
-      <section className="bg-navy text-navy-foreground relative overflow-hidden">
+      <section className="bg-navy text-navy-foreground relative overflow-hidden mt-10">
         <div className="absolute inset-0 opacity-20 pointer-events-none"
           style={{ background: "radial-gradient(circle at 80% 20%, oklch(0.74 0.13 80 / 0.35), transparent 50%), radial-gradient(circle at 10% 90%, oklch(0.62 0.12 175 / 0.25), transparent 50%)" }} />
         <div className="relative mx-auto max-w-5xl px-5 py-16 sm:py-24 text-center">
@@ -392,7 +305,8 @@ function LandingPage() {
           </div>
         </div>
       </section>
-            {/* TESTIMONIALS */}
+
+      {/* TESTIMONIALS */}
       <section className="py-16 sm:py-24 px-5 bg-cream">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl sm:text-4xl text-navy text-center leading-snug">
@@ -438,6 +352,7 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
       {/* PRICE / FINAL CTA */}
       <section className="px-5 pb-16 sm:pb-24">
         <div className="mx-auto max-w-3xl bg-card rounded-3xl border border-border shadow-card p-8 sm:p-12 text-center">
@@ -462,120 +377,29 @@ function LandingPage() {
         </div>
       </section>
       
-      {/* CHECKOUT */}
+      {/* CHECKOUT SECTION */}
       <section ref={formRef} className="bg-navy/5 py-16 sm:py-24 px-5" id="checkout">
         <div className="mx-auto max-w-2xl">
           <div className="bg-card rounded-3xl shadow-elegant border border-border p-6 sm:p-10">
             <h2 className="text-2xl sm:text-3xl text-navy text-center">
               أتمم عملية الشراء واستلم نسختك فوراً علي الواتساب
             </h2>
-        {/* ADD THESE TWO LINES BELOW */}
-        <p className="mt-2 text-center text-sm font-bold text-gold">🎁 خصم خاص لأول 20 عميل</p>
-        <div className="mt-3 rounded-xl border-2 border-gold/60 bg-gold/10 px-5 py-3 text-center">
-          <span className="text-sm sm:text-base font-extrabold text-navy">
-            ⏳ باقي علي الخصم: {Math.floor(Math.random() * 20) + 1} عميل، الحق نسختك دلوقتي قبل انتهاء العرض
-          </span>
-        </div>
-            {/* Payment instructions - emphasized */}
-            <div className="mt-8 rounded-2xl border-2 border-gold bg-gold/5 p-6">
-              <p className="text-sm sm:text-base font-bold text-navy text-center leading-relaxed">
-                طريقة الدفع الوحيدة حالياً: قم بتحويل <span className="text-gold">199ج</span>  إلى فودافون كاش / انستا باي على الرقم:
-              </p>
-              <div className="mt-4 flex items-center justify-center gap-3 flex-wrap" dir="ltr">
-                <span className="text-3xl sm:text-4xl font-extrabold text-navy tracking-wider select-all bg-cream px-4 py-2 rounded-lg border border-gold/40">
-                  01020174981
-                </span>
-                <button
-                  type="button"
-                  onClick={copyNumber}
-                  className="text-xs font-bold rounded-md bg-navy text-navy-foreground px-4 py-3 hover:opacity-90"
-                >
-                  {copied ? "تم النسخ ✓" : "نسخ الرقم"}
-                </button>
-              </div>
+            
+            <p className="mt-2 text-center text-sm font-bold text-gold">🎁 خصم خاص لأول 20 عميل</p>
+            <div className="mt-3 rounded-xl border-2 border-gold/60 bg-gold/10 px-5 py-3 text-center">
+              <span className="text-sm sm:text-base font-extrabold text-navy">
+                ⏳ باقي علي الخصم: {Math.floor(Math.random() * 20) + 1} عميل، الحق نسختك دلوقتي قبل انتهاء العرض
+              </span>
+            </div>
+            
+            <div className="mt-8">
+              <WhatsAppCheckoutButton />
             </div>
 
-            {submitted ? (
-              <div id="success" className="mt-8 rounded-2xl border-2 border-teal bg-teal/10 p-8 text-center">
-                <div className="mx-auto h-14 w-14 rounded-full bg-teal text-white flex items-center justify-center">
-                  <CheckIcon className="h-8 w-8" />
-                </div>
-                <h3 className="mt-4 text-xl sm:text-2xl text-navy font-bold">تم استلام طلبك بنجاح! 🎉</h3>
-                <p className="mt-3 text-muted-foreground leading-relaxed">
-                  هنتأكد من التحويل، وهيوصلك النظام التفاعلي على الإيميل والواتساب خلال لحظات.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-6 text-sm font-bold text-gold hover:underline"
-                >
-                  إرسال طلب آخر
-                </button>
-              </div>
-            ) : (
-              <>
-              <form
-                ref={formElRef}
-                onSubmit={handleSubmit}
-                className="mt-8 space-y-5"
-                noValidate={false}
-              >
-                <Field label="الاسم" name="Full_Name" type="text" placeholder="اكتب اسمك بالكامل" required />
-                <Field label="رقم الموبايل" name="Phone" type="tel" placeholder="01xxxxxxxxx(لازم يكون عليه واتساب عشان هتتبعتلك عليه نسختك من الكتيب)" pattern="[0-9+\s\-]{8,15}" required />
-                <Field label="الايميل" name="Email" type="email" placeholder="you@email.com" required />
-
-                <div>
-                  <label className="block text-sm font-bold mb-2 text-navy">طريقة الدفع</label>
-                  <label className="flex items-center gap-3 p-4 rounded-xl border-2 border-gold bg-gold/10 cursor-not-allowed">
-                    <input type="radio" name="Payment_Method" value="VodafoneCash_InstaPay" checked readOnly className="accent-gold h-5 w-5" />
-                    <span className="font-bold text-navy">فودافون كاش / انستا باي</span>
-                  </label>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold mb-2 text-navy">
-                    ارفع صورة (سكرين شوت) تؤكد إتمام التحويل
-                  </label>
-                  <label className="flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-gold/60 bg-gold/5 cursor-pointer hover:bg-gold/10 transition">
-                    <svg className="h-8 w-8 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" />
-                    </svg>
-                    <span className="text-sm font-semibold text-navy">
-                      {file?.name || "اضغط لاختيار الصورة"}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      required
-                      className="sr-only"
-                      onChange={(e) => setFile(e.target.files?.[0] || null)}
-                    />
-                  </label>
-                </div>
-
-                {errorMsg && (
-                  <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive font-semibold text-center">
-                    {errorMsg}
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="btn-gold w-full text-lg py-5"
-                >
-                  {isLoading ? "جاري رفع الصورة وتأكيد الدفع..." : "تأكيد الدفع ◀"}
-                </button>
-                <p className="text-center text-xs text-muted-foreground">
-                  خلال لحظات هيتم التأكد من التحويل، وهيتبعتلك النظام على الايميل والواتساب.
-                </p>
-              </form>
-              <WhatsAppFallbackButton />
-              </>
-            )}
           </div>
         </div>
       </section>
+
       {/* FAQ */}
       <section className="py-16 sm:py-24 px-5">
         <div className="mx-auto max-w-2xl">
@@ -624,67 +448,5 @@ function LandingPage() {
         </button>
       </div>
     </>
-  );
-}
-function WhatsAppIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.4134-.074-.111-.272-.173-.57-.322zM12.005 2.001c-6.077 0-11.002 4.925-11.002 11.002 0 1.94.505 3.84 1.466 5.512L.758 22.209l3.8-1.003A10.946 10.946 0 0012.005 24c6.077 0 11.002-4.925 11.002-11.002 0-2.937-1.146-5.702-3.228-7.785A10.947 10.947 0 0012.005 2.001z" />
-    </svg>
-  );
-}
-
-function WhatsAppFallbackButton() {
-  return (
-    <a
-      href="https://wa.me/201558856357?text=أهلاً، أواجه مشكلة في إتمام الدفع أو رفع الصورة لكتيب بوصلة المستقل، وهذا إثبات الدفع:"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mt-5 block w-full rounded-2xl bg-[#25D366] px-5 py-4 text-white shadow-lg transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]"
-    >
-      <div className="flex items-center justify-center gap-3">
-        <WhatsAppIcon className="h-7 w-7 shrink-0" />
-        <div className="text-right leading-snug">
-          <p className="text-sm font-bold sm:text-base">
-            واجهت مشكلة في الدفع أو رفع الصورة؟
-          </p>
-          <p className="text-xs font-semibold opacity-95 sm:text-sm">
-            أرسل إثبات الدفع عبر واتساب من هنا
-          </p>
-        </div>
-      </div>
-    </a>
-  );
-}
-function Field({
-  label,
-  name,
-  type,
-  placeholder,
-  required,
-  pattern,
-}: {
-  label: string;
-  name: string;
-  type: string;
-  placeholder?: string;
-  required?: boolean;
-  pattern?: string;
-}) {
-  return (
-    <div>
-      <label htmlFor={name} className="block text-sm font-bold mb-2 text-navy">
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        pattern={pattern}
-        className="w-full rounded-xl border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition"
-      />
-    </div>
   );
 }
