@@ -388,7 +388,7 @@ function LandingPage() {
             <p className="mt-2 text-center text-sm font-bold text-gold">🎁 خصم خاص لأول 20 عميل 199ج بدلاً من 1199ج</p>
             <div className="mt-3 rounded-xl border-2 border-gold/60 bg-gold/10 px-5 py-3 text-center">
               <span className="text-sm sm:text-base font-extrabold text-navy">
-                ⏳ باقي علي الخصم: {Math.floor(Math.random() * 20) + 1} عميل، الحق نسختك دلوقتي قبل انتهاء العرض
+                ⏳ باقي علي الخصم: {Math.floor(Math.random() * 10) + 1} عميل، الحق نسختك دلوقتي قبل انتهاء العرض
               </span>
             </div>
             
