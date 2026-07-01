@@ -1,3 +1,5 @@
+import { useState, FormEvent } from "react";
+
 function WhatsAppIcon({ className = "h-7 w-7" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -8,19 +10,55 @@ function WhatsAppIcon({ className = "h-7 w-7" }: { className?: string }) {
 }
 
 export function WhatsAppCheckoutButton() {
-  const handleClick = () => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "InitiateCheckout", {
-        value: 199.0,
-        currency: "EGP",
-        content_name: "بوصلة المستقل",
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMsg("");
+
+    const fd = new FormData(e.currentTarget);
+    const fullName = String(fd.get("Full_Name") || "");
+    const phone = String(fd.get("Phone") || "");
+
+    try {
+      // 1. إرسال الداتا لـ Formspree عشان تحفظ أرقام العملاء
+      await fetch("https://formspree.io/f/mlgkzpkr", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Full_Name: fullName,
+          Phone: phone,
+          Action: "Initiated Checkout - Redirecting to WhatsApp",
+        }),
       });
+
+      // 2. تسجيل الحدث في فيسبوك بيكسل
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "InitiateCheckout", {
+          value: 199.0,
+          currency: "EGP",
+          content_name: "بوصلة المستقل",
+        });
+      }
+
+      // 3. تحويل العميل للواتساب
+      const whatsappNumber = "201558856357";
+      const message = encodeURIComponent("أهلاً، سجلت بياناتي ومهتم بكتيب بوصلة المستقل، إيه التفاصيل؟");
+      window.open(
+        `https://wa.me/${whatsappNumber}?text=${message}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    } catch (err) {
+      setErrorMsg("حدث خطأ في الاتصال، حاول مرة أخرى.");
+    } finally {
+      setIsLoading(false);
     }
-    window.open(
-      "https://wa.me/201558856357?text=أهلاً، أنا مهتم بكتيب بوصلة المستقل وعندي استفسار بسيط",
-      "_blank",
-      "noopener,noreferrer"
-    );
   };
 
   return (
@@ -28,22 +66,51 @@ export function WhatsAppCheckoutButton() {
       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg">
         <WhatsAppIcon className="h-9 w-9" />
       </div>
+      
       <h3 className="mt-5 text-2xl sm:text-3xl font-extrabold text-navy">
-        خطوة واحدة وتستلم نسختك!
+        احجز نسختك الآن!
       </h3>
-      <p className="mt-3 text-base sm:text-lg text-navy/80 leading-relaxed">
-        اضغط على الزرار، أكمل الشراء، واستلم الكتيب فوراً على الواتساب.
+      <p className="mt-3 mb-6 text-base sm:text-lg text-navy/80 leading-relaxed">
+        سجل بياناتك عشان نحفظ نسختك، وهيتم تحويلك للواتساب فوراً لإتمام الدفع واستلام الكتيب.
       </p>
-      <button
-        type="button"
-        onClick={handleClick}
-        className="mt-7 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-6 py-5 text-lg sm:text-xl font-extrabold text-white shadow-xl transition-transform duration-200 hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98]"
-      >
-        <WhatsAppIcon className="h-7 w-7" />
-        إتمام الدفع عبر واتساب
-      </button>
-      <p className="mt-4 text-xs text-navy/60">
-        بعد تأكيد الدفع، هيوصلك الكتيب التفاعلي فوراً على الواتساب.
+
+      <form onSubmit={handleSubmit} className="space-y-4 text-right">
+        <div>
+          <input
+            type="text"
+            name="Full_Name"
+            required
+            placeholder="الاسم بالكامل"
+            className="w-full rounded-xl border-2 border-white/60 bg-white p-4 outline-none transition focus:border-[#25D366] focus:ring-2 focus:ring-[#25D366]/30 text-navy font-semibold"
+          />
+        </div>
+        <div>
+          <input
+            type="tel"
+            name="Phone"
+            required
+            dir="rtl"
+            placeholder="رقم الواتساب (مثال: 01012345678)"
+            className="w-full rounded-xl border-2 border-white/60 bg-white p-4 text-right outline-none transition focus:border-[#25D366] focus:ring-2 focus:ring-[#25D366]/30 placeholder:text-right text-navy font-semibold"
+          />
+        </div>
+
+        {errorMsg && (
+          <p className="text-red-600 text-sm font-bold text-center">{errorMsg}</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-6 py-5 text-lg sm:text-xl font-extrabold text-white shadow-xl transition-transform duration-200 hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
+        >
+          <WhatsAppIcon className="h-7 w-7" />
+          {isLoading ? "جاري التحويل..." : "متابعة للواتساب ◀"}
+        </button>
+      </form>
+
+      <p className="mt-5 text-xs font-semibold text-navy/60">
+        معلوماتك في أمان تام، بنستخدمها فقط عشان نتابع معاك استلام الكتيب.
       </p>
     </div>
   );
