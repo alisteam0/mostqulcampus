@@ -101,20 +101,8 @@ function LandingPage() {
       <section className="py-16 sm:py-24 px-5">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-2xl sm:text-4xl text-navy text-center leading-snug">
-            عارف إحساس إنك تبعت 50 عرض (Proposal) ومحدش يرد عليك؟
+          مش محتاج تكون عندك أي خبرة عشان تبدأ. النظام ده هيعلمك إزاي تخلي الذكاء الاصطناعي يكتشف مهارتك، ويحولها لمصدر دخل في 30 يوم.
           </h2>
-          <ul className="mt-10 space-y-4">
-            {[
-              "بتبخس بسعرك عشان تنافس وبرضه مفيش شغل.",
-              "خايف من حوار التسعير والعميل اللي بيفاصل.",
-              "معندكش بورتفوليو ومش عارف تجيب عملاء من غيره.",
-            ].map((t) => (
-              <li key={t} className="flex items-start gap-4 bg-card rounded-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] border border-border">
-                <WarningIcon />
-                <span className="text-base sm:text-lg leading-relaxed">{t}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
