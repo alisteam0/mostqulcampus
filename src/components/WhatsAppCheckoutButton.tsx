@@ -17,7 +17,7 @@ export function WhatsAppCheckoutButton() {
       });
     }
     window.open(
-      "https://wa.me/201558856357?text=أهلاً، أنا جاهز لإتمام الدفع وشراء كتيب بوصلة المستقل. ما هي خطوات التحويل؟",
+      "https://wa.me/201558856357?text=أهلاً، أنا مهتم بكتيب بوصلة المستقل وعندي استفسار بسيط",
       "_blank",
       "noopener,noreferrer"
     );
