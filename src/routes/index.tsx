@@ -581,10 +581,55 @@ function LandingPage() {
               </p>
             </div>
 
+{/* --- ORDER SUMMARY (CART) --- */}
+            <div className="mt-8 bg-white rounded-2xl border border-border shadow-sm p-5 sm:p-7 text-right">
+              <h4 className="text-lg sm:text-xl font-extrabold text-navy mb-5 flex items-center gap-2">
+                <svg className="w-6 h-6 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                ملخص الطلب
+              </h4>
+              
+              <div className="space-y-4 text-sm sm:text-base text-navy/85 font-semibold">
+                <div className="flex justify-between items-center gap-4">
+                  <span>النظام التفاعلي لكتيب بوصلة المستقل</span>
+                  <span className="font-bold shrink-0">749 ج.م</span>
+                </div>
+                <div className="flex justify-between items-center gap-4">
+                  <span>ملف إكسيل جاهز لتسعير خدماتك باحترافية</span>
+                  <span className="font-bold shrink-0">150 ج.م</span>
+                </div>
+                <div className="flex justify-between items-center gap-4">
+                  <span>مكتبة الـ Master Prompts (+50 أمر جاهز للنسخ)</span>
+                  <span className="font-bold shrink-0">300 ج.م</span>
+                </div>
+                <div className="flex justify-between items-center gap-4">
+                  <span>دعم فني واستشارات على الواتساب لضمان نجاحك</span>
+                  <span className="font-extrabold text-teal shrink-0">مجاني</span>
+                </div>
+                
+                {/* Totals Section */}
+                <div className="border-t border-dashed border-border pt-4 mt-5">
+                  <div className="flex justify-between items-center text-muted-foreground mb-2">
+                    <span>الإجمالي (قبل الخصم)</span>
+                    <span className="line-through font-bold">1199 ج.م</span>
+                  </div>
+                  <div className="flex justify-between items-center text-destructive mb-3">
+                    <span className="bg-destructive/10 text-destructive px-2 py-1 rounded-md text-xs sm:text-sm">خصم لفترة محدودة</span>
+                    <span className="font-extrabold">- 1000 ج.م</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xl sm:text-2xl font-extrabold text-navy pt-3 border-t border-border">
+                    <span>الإجمالي المطلوب دفعه</span>
+                    <span className="text-gold text-2xl sm:text-3xl">199 ج.م</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Payment instructions */}
-            <div className="mt-8 rounded-2xl border-2 border-gold bg-gold/5 p-6">
+            <div className="mt-6 rounded-2xl border-2 border-gold bg-gold/5 p-6">
               <p className="text-sm sm:text-base font-bold text-navy text-center leading-relaxed">
-                طريقة الدفع الوحيدة حالياً: قم بتحويل <span className="text-gold">199ج</span> إلى فودافون كاش / انستا باي على الرقم:
+                لإتمام الشراء، قم بتحويل <span className="text-gold text-lg mx-1">199ج</span> إلى فودافون كاش أو انستا باي على الرقم:
               </p>
               <div className="mt-4 flex items-center justify-center gap-3 flex-wrap" dir="ltr">
                 <span className="text-3xl sm:text-4xl font-extrabold text-navy tracking-wider select-all bg-cream px-4 py-2 rounded-lg border border-gold/40">
@@ -593,7 +638,7 @@ function LandingPage() {
                 <button
                   type="button"
                   onClick={copyNumber}
-                  className="text-xs font-bold rounded-md bg-navy text-navy-foreground px-4 py-3 hover:opacity-90"
+                  className="text-xs font-bold rounded-md bg-navy text-navy-foreground px-4 py-3 hover:opacity-90 transition-opacity"
                 >
                   {copied ? "تم النسخ ✓" : "نسخ الرقم"}
                 </button>
