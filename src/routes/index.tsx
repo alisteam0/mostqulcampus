@@ -193,24 +193,89 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* AGITATION */}
+{/* AGITATION & NEW VALUE PROPOSITION */}
       <section className="py-16 sm:py-24 px-5">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl sm:text-4xl text-navy text-center leading-snug">
-            عارف إحساس إنك تبعت 50 عرض (Proposal) ومحدش يرد عليك؟
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl sm:text-4xl text-navy leading-snug font-extrabold">
+            لو كتبت "إزاي أبدأ فريلانس" أو "شغل أونلاين" على يوتيوب هتلاقي مليون فيديو...
+            <span className="block mt-2 text-destructive">وهتقفل وإنت أضيع وأتوه من الأول.</span>
           </h2>
-          <ul className="mt-10 space-y-4">
+          
+          <div className="mt-8 space-y-5 text-base sm:text-lg text-muted-foreground leading-relaxed text-right sm:text-center">
+            <p>
+              المشكلة عمرها ما كانت قلة المعلومات. المشكلة إن كل حد بيقولك "اتعلم مهارة وابدأ" — ومحدش بيقولك تجيب المهارة دي إزاي لو معندكش، ولا تبدأ إزاي بالترتيب، خطوة ورا خطوة.
+            </p>
+            <p className="font-semibold text-navy/80">
+              والنتيجة؟ سنة ورا سنة بتعدي وإنت واقف مكانك، بتبعت لخمسين عميل ومحدش بيرد عليك، وبتتفرج على ناس بدأت بعدك... وسبقتك بمراحل.
+            </p>
+          </div>
+        </div>
+
+        {/* The Solution Roadmap Box */}
+        <div className="mx-auto max-w-5xl mt-12 bg-navy rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden text-center border border-gold/20">
+          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 50%, var(--gold), transparent 60%)" }} />
+          <h3 className="relative text-2xl sm:text-3xl font-bold text-gold mb-4">
+            بوصلة المستقل مش كتاب PDF تقراه وتنساه في فولدر الداونلودز!
+          </h3>
+          <p className="relative text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+            دي خريطة و"نظام تفاعلي" كامل متقسم لـ 4 مراحل بيكملوا بعض. هتمسكها من أولها وتمشي فيها بالترتيب — ومش هتحتاج تفتح 100 فيديو تاني يشتتك:
+          </p>
+          
+          <div className="relative flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-gold font-extrabold text-sm sm:text-base bg-white/5 p-5 rounded-2xl border border-white/10 backdrop-blur-sm">
+            <span>صفر مهارة</span> 
+            <span className="opacity-50">←</span>
+            <span>اكتشاف التخصص بالـ AI</span> 
+            <span className="opacity-50">←</span>
+            <span>بناء محلك الديجيتال</span> 
+            <span className="opacity-50">←</span>
+            <span>خطة صيد العملاء</span> 
+            <span className="opacity-50">←</span>
+            <span className="bg-gold text-navy px-3 py-1 rounded-lg">تقبض أول قبض</span>
+          </div>
+        </div>
+
+        {/* Core Modules Grid */}
+        <div className="mx-auto max-w-6xl mt-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-navy">إيه اللي جوه البوصلة بالظبط؟</h3>
+            <p className="mt-3 text-lg text-muted-foreground font-semibold">المحاور الأساسية — النظام:</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6">
             {[
-              "بتبخس بسعرك عشان تنافس وبرضه مفيش شغل.",
-              "خايف من حوار التسعير والعميل اللي بيفاصل.",
-              "معندكش بورتفوليو ومش عارف تجيب عملاء من غيره.",
-            ].map((t) => (
-              <li key={t} className="flex items-start gap-4 bg-card rounded-xl p-5 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] border border-border">
-                <WarningIcon />
-                <span className="text-base sm:text-lg leading-relaxed">{t}</span>
-              </li>
+              { e: "📕", t: "المحور الأول: اكتشاف مهارتك بالذكاء الاصطناعي", d: "أكبر حاجة بتوقف الناس قبل ما تبدأ: 'أنا معنديش مهارة أبيعها أصلاً!' — المحور ده بيقفل السؤال ده للأبد. هعلمك إزاي تخلي الـ AI يكتشف تخصص مطلوب في السوق وتقدر تقدم فيه خدمة قوية وتكسب منها حتى لو بتبدأ من الصفر." },
+              { e: "📗", t: "المحور الثاني: التسعير الذكي وبناء الباكدجات", d: "عشان لما العميل يكلمك ميحصلش السيناريو الأشهر: 'سعرك غالي.. هفكر وأرد عليك'. هتعرف أخطاء التسعير اللي بتقتل الديل، وإزاي تعمل 3 باكدجات لخدمتك تمنع الفصال وتخليك تقفل البيعة وإنت مرتاح." },
+              { e: "📘", t: "المحور الثالث: خطة 'صيد' العملاء وفن الردود", d: "بلاش تستنى الرزق يجيلك لحد عندك. هنديك خطة عملية بـ 'قاعدة الـ 10 في اليوم' لجلب العملاء من بوق الأسد، مع ردود ذكية ومجربة للتعامل مع أي اعتراض يواجهك عشان متخسرش ولا عميل." },
+            ].map((c) => (
+              <div key={c.t} className="bg-card rounded-2xl p-7 border border-border shadow-card hover:-translate-y-1 hover:shadow-elegant transition-all">
+                <div className="text-4xl mb-4">{c.e}</div>
+                <h4 className="text-xl font-bold text-navy mb-3 leading-snug">{c.t}</h4>
+                <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{c.d}</p>
+              </div>
             ))}
-          </ul>
+          </div>
+        </div>
+
+        {/* Bonuses Grid */}
+        <div className="mx-auto max-w-6xl mt-16">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-navy">الهدايا — 3 أدوات مجانية هتاخدهم جوه البوصلة:</h3>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { t: "مكتبة الـ Master Prompts", p: "(قيمتها 300ج)", d: "ترسانة من +50 أمر ذكاء اصطناعي جاهز للنسخ واللصق. الـ AI هيشتغل كأنه فريق مساعدينك: محلل، بياع، ومراجع جودة.. بيخلصوا شغل أسبوع في يومين." },
+              { t: "شيت إكسيل التسعير الاحترافي", p: "(قيمته 150ج)", d: "خايف تظلم نفسك في السعر أو تطفش العميل؟ الشيت ده هيحسبلك سعرك العادل بالمليم بناءً على مجهودك ووقتك ومتوسط السوق في ثواني." },
+              { t: "كراسة الـ 30 يوم التنفيذية + دعم فني", p: "(لا تقدر بثمن)", d: "لأن الفرق بين اللي بيقرأ واللي بيكسب هو التنفيذ. خطة يوم بيوم لأول شهر ليك، ومعاها دعم واستشارات على الواتساب عشان لو وقفت في أي خطوة تلاقيني في ضهرك." },
+            ].map((b) => (
+              <div key={b.t} className="bg-gold/5 rounded-2xl p-7 border border-gold/30 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-gold text-navy text-xs font-bold px-3 py-1 rounded-bl-lg">مجاناً 🎁</div>
+                <h4 className="text-lg font-bold text-navy mt-2 leading-snug">{b.t}</h4>
+                <p className="text-sm font-bold text-teal mb-3">{b.p}</p>
+                <p className="text-muted-foreground leading-relaxed text-sm">{b.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -494,11 +559,11 @@ function LandingPage() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
                   <CheckIcon className="text-teal w-6 h-6 shrink-0" />
-                  <span className="text-navy font-semibold text-sm sm:text-base">ملف إكسيل جاهز لتسعير خدماتك باحترافية (قيمته 15$).</span>
+                  <span className="text-navy font-semibold text-sm sm:text-base">ملف إكسيل جاهز لتسعير خدماتك باحترافية (قيمته 150ج).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckIcon className="text-teal w-6 h-6 shrink-0" />
-                  <span className="text-navy font-semibold text-sm sm:text-base">مكتبة الـ Master Prompts: +50 أمر جاهز للنسخ (قيمته 25$).</span>
+                  <span className="text-navy font-semibold text-sm sm:text-base">مكتبة الـ Master Prompts: +50 أمر جاهز للنسخ (قيمته 300ج).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckIcon className="text-teal w-6 h-6 shrink-0" />
